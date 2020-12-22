@@ -83,16 +83,16 @@
         $("#calculateBtn").attr("disabled", true);
         let name = $("input[name=url1]").val();
         let email = $("input[name=url2]").val();
-        let mobile_number = jQuery('#url1').val();
-        let message =jQuery('#url2').val();
+        let url1 = jQuery('#url1').val();
+        let url2 =jQuery('#url2').val();
         let _token   = $('meta[name="csrf-token"]').attr('content');
   
         $.ajax({
           url: "/comparison",
           type:"POST",
           data:{
-            url1:mobile_number,
-            url2:message,
+            url1:url1,
+            url2:url2,
             _token: _token
           },
           success:function(response){
