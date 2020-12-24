@@ -4,7 +4,7 @@ from sentence_transformers import SentenceTransformer, util
 import torch
 import json
 
-with open('public\myfile.json') as f:
+with open('myfile.json') as f:
     distros_dict = json.load(f)
 
 embedder = SentenceTransformer('distilbert-base-nli-stsb-mean-tokens')
@@ -22,6 +22,8 @@ top_k = 1
 sentences=[]
 sentencesScore=[]
 querySentences=[]
+arrayObjectSenteces={}
+arrayObjectSenteces['data']=[]
 for query in queries:
     query_embedding = embedder.encode(query, convert_to_tensor=True)
     cos_scores = util.pytorch_cos_sim(query_embedding, corpus_embeddings)[0]
@@ -35,5 +37,15 @@ for query in queries:
         sentences.append(corpus[idx])
         sentencesScore.append(round(float(score*100),2))
         querySentences.append(query)
+
+for i in range(len(sentences)):
+    arrayObjectSenteces['data'].append({
+        'sentence1': sentences[i],
+        'sentence2': querySentences[i],
+        'score': sentencesScore[i],
+
+    })
     
-print(json.dumps({'sentences':sentences,'score':sentencesScore, 'querySentences':querySentences}))
+with open('data.json', 'w') as outfile:
+    json.dump(arrayObjectSenteces, outfile)
+#print(json.dumps({'sentences':sentences,'score':sentencesScore, 'querySentences':querySentences}))
