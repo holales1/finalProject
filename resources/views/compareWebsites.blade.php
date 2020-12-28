@@ -34,10 +34,10 @@
                     <table class="table">
                         <thead>
                           <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
+                            <th scope="col"></th>
+                            <th scope="col">Url 1</th>
+                            <th scope="col">Url 2</th>
+                            <th scope="col">Score</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -95,14 +95,21 @@
             url2:url2,
             _token: _token
           },
-          success:function(response){
-            $('#calculateBtn').attr("disabled", false);
-            console.log(response);
-            if(response) {
-              $('.success').text(response.success);
-              $("#ajaxform")[0].reset();
-            }
-          },
+            success:function(response){
+              $('#calculateBtn').attr("disabled", false);
+              console.log(response);
+              $.ajax({
+                  type: "get",
+                  url: "data.json",
+                  success: function (data) {
+                    console.log(data);
+                  }
+              });
+              if(response) {
+                $('.success').text(response.success);
+                $("#ajaxform")[0].reset();
+              }
+            },
           });
     });
   </script>
