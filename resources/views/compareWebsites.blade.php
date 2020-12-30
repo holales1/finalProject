@@ -3,6 +3,7 @@
 @if(isset(Auth::user()->email))
 
 <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
+  <div class="container">
     <div class="max-w-12xl mx-auto sm:px-6 lg:px-8">
         <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
             <div class="grid grid-cols-1 md:grid-cols-1">
@@ -40,39 +41,17 @@
                             <th scope="col">Score</th>
                           </tr>
                         </thead>
-                        <tbody>
-                          <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                          </tr>
+                        <tbody id="tbody">
+                          
                         </tbody>
                       </table>
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div class="panel panel-default">
-                <div class="panel-heading">Panel Heading</div>
-                <div class="panel-body">Panel Content</div>
-                <div class="panel-footer">Panel Footer</div>
-              </div>
-                
-          </div>
+        
+          
     </div>
+  </div>
 </div>
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -81,8 +60,6 @@
     $("#calculateBtn").click(function(event){
         event.preventDefault();
         $("#calculateBtn").attr("disabled", true);
-        let name = $("input[name=url1]").val();
-        let email = $("input[name=url2]").val();
         let url1 = jQuery('#url1').val();
         let url2 =jQuery('#url2').val();
         let _token   = $('meta[name="csrf-token"]').attr('content');
@@ -97,18 +74,25 @@
           },
             success:function(response){
               $('#calculateBtn').attr("disabled", false);
-              console.log(response);
+              //console.log(response);
               $.ajax({
                   type: "get",
                   url: "data.json",
                   success: function (data) {
-                    console.log(data);
+                    console.log(data.data);
+                    console.log(data.data.length);
+                    for(var i=0;i<data.data.length;i++)
+                    {
+                      var Html="<tr> <td></td>  <td>"+data.data[i].sentence1+"</td> <td>"+data.data[i].sentence2+"</td> <td>"+data.data[i].score+"</td>  </tr>";
+                      $('#tbody').append(Html);
+                    }
                   }
               });
-              if(response) {
+              /*if(response) {
+                console.log("gasdgasd");
                 $('.success').text(response.success);
                 $("#ajaxform")[0].reset();
-              }
+              }*/
             },
           });
     });

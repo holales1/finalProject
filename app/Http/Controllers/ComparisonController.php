@@ -23,7 +23,7 @@ class ComparisonController extends Controller
             $arrayResult["url2"]=explode(' ,.,.,. ',$result2);
             $r =json_encode($arrayResult);
             $bytes = file_put_contents("myfile.json", $r); 
-            $result3 = shell_exec('python ' . app_path(). '\http\controllers\ORB\test.py \''.$r.'\'');
+            $result3 = shell_exec('python ' . app_path(). '\http\controllers\ORB\test.py');
             return $result3;
     }
 }
