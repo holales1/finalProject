@@ -1,7 +1,8 @@
 @extends('app')
 @section('content')
   <div class="container box">
-   <h3 align="center">Simple Login System in Laravel</h3><br />
+
+   <h3 class="center animate__animated animate__fadeInLeft">User Authentication</h3><br />
 
    @if(isset(Auth::user()->email))
     <script>window.location="/comparison";</script>
@@ -40,3 +41,4 @@
    </form>
   </div>
 @endsection
+
