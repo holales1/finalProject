@@ -74,24 +74,31 @@
           },
             success:function(response){
               $('#calculateBtn').attr("disabled", false);
-              //console.log(response);
-              $.ajax({
-                  type: "get",
-                  url: "data.json",
-                  success: function (data) {
-                    console.log(data.data);
-                    console.log(data.data.length);
-                    for(var i=0;i<data.data.length;i++)
-                    {
-                      var Html="<tr> <td></td>  <td>"+data.data[i].sentence1+"</td> <td>"+data.data[i].sentence2+"</td> <td>"+data.data[i].score+"</td>  </tr>";
-                      $('#tbody').append(Html);
+              $("#ajaxform")[0].reset();
+              console.log(response);
+              if(response === 'Error'){
+                console.log("fdsfs");
+                alert("There is an error with any of the url");
+              }else{
+                $.ajax({
+                    type: "get",
+                    url: "data.json",
+                    success: function (data) {
+                      console.log(data.data);
+                      console.log(data.data.length);
+                      $("#tbody").empty();
+                      for(var i=0;i<data.data.length;i++)
+                      {
+                        var Html="<tr> <td></td>  <td>"+data.data[i].sentence1+"</td> <td>"+data.data[i].sentence2+"</td> <td>"+data.data[i].score+"</td>  </tr>";
+                        $('#tbody').append(Html);
+                      }
                     }
-                  }
-              });
+                });
+              }
               /*if(response) {
                 console.log("gasdgasd");
                 $('.success').text(response.success);
-                $("#ajaxform")[0].reset();
+                
               }*/
             },
           });
