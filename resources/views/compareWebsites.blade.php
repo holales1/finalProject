@@ -1,5 +1,7 @@
 @extends('app')
+
 @section('content')
+
 @if(isset(Auth::user()->email))
 
 <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
@@ -42,14 +44,14 @@
                           </tr>
                         </thead>
                         <tbody id="tbody">
-                          
+
                         </tbody>
                       </table>
                 </div>
             </div>
         </div>
-        
-          
+
+
     </div>
   </div>
 </div>
@@ -63,7 +65,7 @@
         let url1 = jQuery('#url1').val();
         let url2 =jQuery('#url2').val();
         let _token   = $('meta[name="csrf-token"]').attr('content');
-  
+
         $.ajax({
           url: "/comparison",
           type:"POST",
